@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= pageTitle %></title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=PT+Sans+Narrow:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+    />
+
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body>
+    <div class="content-wrapper">
+      <section class="form-section">
+        <header class="form-header">
+          <article class="form-header_content">
+            <span class="form-title">Average Calculator</span>
+            <p class="form-info">
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod eum
+              consectetur explicabo, molestias, hic aut perferendis, deleniti
+              dolores repellendus natus numquam. Qui laborum alias eligendi, ab
+              voluptas itaque? Exercitationem, minima? Lorem ipsum dolor sit
+              amet consectetur adipisicing elit. Suscipit veniam sit quisquam
+              vero quod. Eum velit excepturi id ratione, facere aut sequi
+              architecto tempora a numquam odit quidem totam exercitationem.
+            </p>
+          </article>
+          <figure class="form-header_img">
+            <img
+              src="https://img.freepik.com/free-vector/calculator-concept-illustration_114360-2686.jpg?w=2000"
+              alt=""
+            />
+          </figure>
+        </header>
+        
+        <form class="marks-form" action="/" method="POST" enctype="application/x-www-form-urlencoded">
+          <div class="form-group">
+              <div class="message-container">
+                <label for="student-name" class="form-label">Student Name</label>
+                <% const nameError=errors.find(err=>err.path=='name'); %>
+                <% if(nameError){ %>
+                <h4 class="error-message">*<%= nameError.msg %></h4>
+                <% } %> 
+
+              </div>
+            <input
+              type="text"
+              id="student-name"
+              name="name"
+              class="form-input"
+              placeholder="Enter Student Name"
+              value="<%= oldInput.name %>"
+            />
+            
+          </div>
+          <!-- <div class="form-group"> -->
+            <div class="form-group">
+              <div class="message-container">
+                <label for="mid-term" class="form-label">Mid Term</label>
+                <% const midMarkError=errors.find(err=>err.path=='midMark'); %>
+                <% if(midMarkError){ %>
+                <h4 class="error-message">*<%= midMarkError.msg %></h4>
+                <% } %> 
+              </div>
+            <input
+              type="number"
+              id="mid-term"
+              name="midMark"
+              class="form-input"
+              placeholder="Enter Mark",
+              value="<%= oldInput.midMark %>"
+            />
+          </div>
+          <div class="form-group">
+            <div class="message-container">
+              <label for="mid-term" class="form-label">Final</label>
+              <% const finalMarkError=errors.find(err=>err.path=='finalMark'); %>
+              <% if(finalMarkError){ %>
+              <h4 class="error-message">*<%= finalMarkError.msg %></h4>
+              <% } %>
+            </div>
+            <input
+              type="number"
+              id="mid-term"
+              name="finalMark"
+              class="form-input"
+              placeholder="Enter Mark"
+              value="<%= oldInput.finalMark %>"
+            />
+          </div>
+          <div class="form-group">
+            <div class="message-container">
+              <label for="mid-term" class="form-label">Activities</label>
+              <% const activitiesMarkError=errors.find(err=>err.path=='activitiesMark'); %>
+                <% if(activitiesMarkError){ %>
+                <h4 class="error-message">*<%= activitiesMarkError.msg %></h4>
+                <% } %>
+            </div>
+            <input
+              type="number"
+              id="mid-term"
+              name="activitiesMark"
+              class="form-input"
+              placeholder="Enter Mark"
+              value="<%= oldInput.activitiesMark %>"
+            />
+          <!-- </div> -->
+          <button type="submit" class="form-btn">SAVE</button>
+        </form>
+      </section>
+      <section>
+        <!-- cards -->
+        <% if(students.length>0){ %>
+          <% for(student of students){ %>
+            <%- include('./components/StudentCart',{student}) %>
+          <% } %>
+        <% }else{ %>
+          <h1>No Students.</h1>
+        <% } %>
+      </section>
+    </div>
+  </body>
+</html>

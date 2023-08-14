@@ -1,0 +1,35 @@
+<section class="card">
+    <article class="card-top-content">
+      <div class="card-top-content-leading">
+        <span class="name-first-char">S</span>
+        <div class="student-info">
+          <span><%= student.name %></span>
+          <span><%= student.id %></span>
+        </div>
+      </div>
+      <form action="/<%= student.id %>" method="POST">
+        <input type="hidden" name="_method" value="DELETE">
+        <button type="submit" style="border:none;">
+          <i class="fa-solid fa-xmark delete-row"></i>
+        </button>
+      </form>
+    </article>
+    <article class="card-marks">
+      <section class="mark-info">
+        <span>Mid-Term</span>
+        <span><%= student.midMark %></span>
+      </section>
+      <section class="mark-info">
+        <span>Final-Term</span>
+        <span><%= student.finalMark %></span>
+      </section>
+      <section class="mark-info">
+        <span>Activities</span>
+        <span><%= student.activitiesMark %></span>
+      </section>
+      <section class="mark-info avg">
+        <span>Average</span>
+        <span><%= student.average.toFixed(2) %></span>
+      </section>
+    </article>
+  </section>
