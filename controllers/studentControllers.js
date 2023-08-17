@@ -9,13 +9,6 @@ exports.index=async(req,res,next)=>{
         });
         res.render('index',{
         pageTitle:'Students Marks',
-        errors:[],
-        oldInput:{
-            name:null,
-            midMark:null,
-            finalMark:null,
-            activitiesMark:null,
-        },
         students
     })
     }catch(error){
@@ -34,17 +27,8 @@ exports.store=async(req,res,next)=>{
             await Student.create(req.body);
             return res.redirect('/');    
         }
-        const students=await Student.findAll({
-            order:[
-                ['id','DESC']
-            ]
-        });
-        res.render('index',{
-        pageTitle:'Students Marks',
-        errors:validation.array({onlyFirstError:true}),
-        oldInput:req.body,
-        students
-    })
+       
+        res.with('errors',validation.array({onlyFirstError:true})).with('old',req.body).redirect('/');
         
     }catch(error){
         const message=error.errors?error.errors[0].message: error.message;

@@ -47,7 +47,7 @@
           <div class="form-group">
               <div class="message-container">
                 <label for="student-name" class="form-label">Student Name</label>
-                <% const nameError=errors.find(err=>err.path=='name'); %>
+                <% const nameError=locals.errors?.find(err=>err.path=='name'); %>
                 <% if(nameError){ %>
                 <h4 class="error-message">*<%= nameError.msg %></h4>
                 <% } %> 
@@ -59,7 +59,7 @@
               name="name"
               class="form-input"
               placeholder="Enter Student Name"
-              value="<%= oldInput.name %>"
+              value="<%= locals.old?.name %>"
             />
             
           </div>
@@ -67,7 +67,7 @@
             <div class="form-group">
               <div class="message-container">
                 <label for="mid-term" class="form-label">Mid Term</label>
-                <% const midMarkError=errors.find(err=>err.path=='midMark'); %>
+                <% const midMarkError=locals.errors?.find(err=>err.path=='midMark'); %>
                 <% if(midMarkError){ %>
                 <h4 class="error-message">*<%= midMarkError.msg %></h4>
                 <% } %> 
@@ -78,13 +78,13 @@
               name="midMark"
               class="form-input"
               placeholder="Enter Mark",
-              value="<%= oldInput.midMark %>"
+              value="<%= locals.old?.midMark %>"
             />
           </div>
           <div class="form-group">
             <div class="message-container">
               <label for="mid-term" class="form-label">Final</label>
-              <% const finalMarkError=errors.find(err=>err.path=='finalMark'); %>
+              <% const finalMarkError=locals.errors?.find(err=>err.path=='finalMark'); %>
               <% if(finalMarkError){ %>
               <h4 class="error-message">*<%= finalMarkError.msg %></h4>
               <% } %>
@@ -95,13 +95,13 @@
               name="finalMark"
               class="form-input"
               placeholder="Enter Mark"
-              value="<%= oldInput.finalMark %>"
+              value="<%= locals.old?.finalMark %>"
             />
           </div>
           <div class="form-group">
             <div class="message-container">
               <label for="mid-term" class="form-label">Activities</label>
-              <% const activitiesMarkError=errors.find(err=>err.path=='activitiesMark'); %>
+              <% const activitiesMarkError=locals.errors?.find(err=>err.path=='activitiesMark'); %>
                 <% if(activitiesMarkError){ %>
                 <h4 class="error-message">*<%= activitiesMarkError.msg %></h4>
                 <% } %>
@@ -112,7 +112,7 @@
               name="activitiesMark"
               class="form-input"
               placeholder="Enter Mark"
-              value="<%= oldInput.activitiesMark %>"
+              value="<%= locals.old?.activitiesMark %>"
             />
           <!-- </div> -->
           <button type="submit" class="form-btn">SAVE</button>
