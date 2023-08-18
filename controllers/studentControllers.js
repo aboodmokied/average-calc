@@ -7,10 +7,13 @@ exports.index=async(req,res,next)=>{
                 ['id','DESC']
             ]
         });
-        res.render('index',{
-        pageTitle:'Students Marks',
-        students
-    })
+        return req.headers.accept=='application/json'
+            ? res.send({status:true,result:students})
+            : res.render('index',{
+                pageTitle:'Students Marks',
+                students
+            });   
+        
     }catch(error){
         const message=error.errors?error.errors[0].message: error.message;
         res.send({status:false,message});
@@ -24,11 +27,14 @@ exports.store=async(req,res,next)=>{
     const validation=validationResult(req);
     try{
         if(validation.isEmpty()){
-            await Student.create(req.body);
-            return res.redirect('/');    
+            const result=await Student.create(req.body);
+            return req.headers.accept=='application/json'
+            ? res.status(201).send({status:true,result})
+            : res.redirect('/');    
         }
-       
-        res.with('errors',validation.array({onlyFirstError:true})).with('old',req.body).redirect('/');
+        return req.headers.accept=='application/json'
+            ? res.status(201).send({status:false,errors:validation.array({onlyFirstError:true})})
+            : res.with('errors',validation.array({onlyFirstError:true})).with('old',req.body).redirect('/');
         
     }catch(error){
         const message=error.errors?error.errors[0].message: error.message;
@@ -40,13 +46,15 @@ exports.store=async(req,res,next)=>{
 // exports.update=(req,res,next)=>{}
 
 exports.destroy=async(req,res,next)=>{
-    try{
+    const validation=validationResult(req);
+        if(validation.isEmpty()){
         const {id}=req.params;
-        await Student.destroy({where:{id}});
-        res.redirect('/');
-    }catch(error){
-        const message=error.errors?error.errors[0].message: error.message;
-        res.send({status:false,message});
-    }
+        const count=await Student.destroy({where:{id}});
+        return req.headers.accept=='application/json'?
+        res.send({status:true,isDeleted:count>0})
+        :res.redirect('/');
+        }
+        res.send({status:false,errors:validation.array({onlyFirstError:true})})
+    
 
 }  

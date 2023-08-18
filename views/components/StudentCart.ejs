@@ -7,7 +7,7 @@
           <span><%= student.id %></span>
         </div>
       </div>
-      <form action="/<%= student.id %>" method="POST">
+      <form action="/student/<%= student.id %>" method="POST">
         <input type="hidden" name="_method" value="DELETE">
         <button type="submit" style="border:none;">
           <i class="fa-solid fa-xmark delete-row"></i>

@@ -1,7 +1,7 @@
 const express=require('express');
 const { index, store, destroy } = require('../controllers/studentControllers');
 const router=express.Router();
-const {body}=require('express-validator');
+const {body, param}=require('express-validator');
 const markValidation = require('../middlewares/markValidation');
 const Student = require('../models/student');
 
@@ -19,7 +19,7 @@ router.use((req,res,next)=>{
 
 // Student Routes
 router.get('/',index);
-router.post('/',[
+router.post('/student',[
     body('name').trim().notEmpty().withMessage('Name Required.').isString().withMessage('Name should be string.')
     .custom((value)=>{
         return Student.count({where:{name:value}}).then(count=>{
@@ -32,6 +32,15 @@ router.post('/',[
     markValidation('activitiesMark'),
 ],store);
 
-router.delete('/:id',destroy);
+router.delete('/student/:id',
+param('id').isNumeric({no_symbols:true}).withMessage('id should be number')
+.custom(value=>{
+
+    return Student.count({where:{id:value}}).then(count=>{
+        console.log(count);
+        if(count==0)return Promise.reject('User not found');
+    })
+})
+,destroy);
 
 module.exports=router;

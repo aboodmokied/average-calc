@@ -26,7 +26,7 @@ const Student=sequelize.define('Student',{
     average:{
         type:DataTypes.VIRTUAL,
         get(){
-            return (this.getDataValue('midMark')+this.getDataValue('finalMark')+this.getDataValue('activitiesMark'))/3;
+            return (+this.getDataValue('midMark') + +this.getDataValue('finalMark') + +this.getDataValue('activitiesMark'))/3;
         }
     }
 })
